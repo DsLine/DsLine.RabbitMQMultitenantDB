@@ -1,0 +1,57 @@
+version: '3.4'
+ 
+services:
+  sql.data:
+    image: microsoft/mssql-server-linux:2017-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"    # Important: In a production environment your should remove the external port
+  portainer:
+    image: portainer/portainer
+    container_name: $portainer
+    command: --no-auth -H unix:///var/run/docker.sock
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+  rabbitmq: # login guest:guest
+    image: rabbitmq:3-management
+    container_name: $rabbitmq
+    hostname: "rabbitmq"
+    labels:
+      NAME: "rabbitmq"
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "25672:25672"
+      - "15671:15671"
+      - "15672:15672"
+    restart: always
+  dsline.stock.services.api:
+    image: ${DOCKER_REGISTRY-}dslinestockservicesapi
+    build:
+      context: .
+      dockerfile: DsLine.Stock.Services.Api/Dockerfile
+    depends_on:
+      - rabbitmq
+      - sql.data
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+  dsline.orders.services.api:
+    image: ${DOCKER_REGISTRY-}dslineordersservicesapi
+    build:
+      context: .
+      dockerfile: DsLine.Order.Services.Api/Dockerfile
+    depends_on:
+      - rabbitmq
+      - sql.data
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"

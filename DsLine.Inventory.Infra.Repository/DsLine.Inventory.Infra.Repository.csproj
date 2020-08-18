@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DsLine.Core.Infra.Repository\DsLine.Core.Infra.Repository.csproj" />
+    <ProjectReference Include="..\DsLine.Inventory.Models.Entities\DsLine.Inventory.Models.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
