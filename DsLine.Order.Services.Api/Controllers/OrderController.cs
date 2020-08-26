@@ -27,7 +27,7 @@ namespace DsLine.Orders.Services.Api.Controllers
             List<OrderItem> ItemsNotSatisfie = new List<OrderItem>();
             foreach (var item in order.Items)
             {
-                ItemStockDTO itemStockDTO = await _stockItemServices.GetItemStockAsync(item.Id);
+                ItemStockDTO itemStockDTO = await _stockItemServices.GetItemStockAsync(item.ItemId);
                 if (itemStockDTO.Quantity < item.Quantity)
                 {
                     ItemsNotSatisfie.Add(item);

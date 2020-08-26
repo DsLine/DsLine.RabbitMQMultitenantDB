@@ -8,7 +8,7 @@ namespace DsLine.Orders.Infra.Repository.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.ToTable("OrderItem");
+            builder.ToTable("OrdersItem");
 
             builder.HasKey(ci => ci.Id);
 

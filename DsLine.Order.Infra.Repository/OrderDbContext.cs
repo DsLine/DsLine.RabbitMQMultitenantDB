@@ -17,6 +17,9 @@ namespace DsLine.Orders.Infra.Repository
         {
             modelBuilder.ApplyConfiguration(new OrderEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OrderItemEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemEntityTypeConfiguration());
+            
             base.OnModelCreating(modelBuilder);
         }
 

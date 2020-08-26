@@ -9,7 +9,7 @@ namespace DsLine.Orders.Services.Api.ExternalServices.Stock
     public interface IStockItemServices
     {
         [AllowAnyStatusCode]
-        [Get("/api/itemStock/{id}")]
+        [Get("/api/item/{id}")]
         Task<ItemStockDTO> GetItemStockAsync([Path] Guid id);
     }
 }

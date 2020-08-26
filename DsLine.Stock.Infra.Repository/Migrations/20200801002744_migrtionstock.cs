@@ -11,7 +11,7 @@ namespace DsLine.Stock.Infra.Repository.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+           
         }
     }
 }

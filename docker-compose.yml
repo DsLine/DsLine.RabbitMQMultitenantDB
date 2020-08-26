@@ -41,8 +41,10 @@ services:
       - sql.data
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
-    ports:
+    expose:
       - "80"
+    ports:
+      - "8082:80"
   dsline.orders.services.api:
     image: ${DOCKER_REGISTRY-}dslineordersservicesapi
     build:
@@ -51,7 +53,11 @@ services:
     depends_on:
       - rabbitmq
       - sql.data
+    links:
+      - dsline.stock.services.api
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
-    ports:
+    expose:
       - "80"
+    ports:
+      - "8081:80"
