@@ -55,6 +55,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DsLine.Stock.Services.Api",
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DAF4F2F4-9C43-4802-A3B8-3123E17C5037}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{DD4BE0EA-BEA7-4C4B-B248-480F20C7D589}"
+	ProjectSection(SolutionItems) = preProject
+		rabbitmq.config\definitions.json = rabbitmq.config\definitions.json
+		rabbitmq.config\rabbitmq.config = rabbitmq.config\rabbitmq.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DsLine.Core.Helper", "..\DsLine.Core.Helper\DsLine.Core.Helper.csproj", "{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +117,10 @@ Global
 		{DAF4F2F4-9C43-4802-A3B8-3123E17C5037}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAF4F2F4-9C43-4802-A3B8-3123E17C5037}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAF4F2F4-9C43-4802-A3B8-3123E17C5037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +147,7 @@ Global
 		{6BA15A44-B914-4255-B227-04A9B894547B} = {DD52A3A0-91B6-486A-B544-6111C3612E4E}
 		{C298EB53-D445-4B07-81CD-22ABF3534879} = {B261706D-37ED-4659-AA35-3884399F3C36}
 		{7C25F666-17AA-4356-B88E-7B9EF9EBE72E} = {274A007C-B4B4-4FC4-8BC7-8FF09368304E}
+		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242} = {6E680E93-84AA-4CEF-8ECB-50E42B805991}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4917E892-F5BB-4063-9521-2572086C2857}

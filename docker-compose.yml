@@ -19,6 +19,14 @@ services:
     restart: always
   rabbitmq: # login guest:guest
     image: rabbitmq:3-management
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "WZALLAOUZQLRYJMHREZW"
+    #  RABBITMQ_DEFAULT_USER: "rabbitmq"
+    #  RABBITMQ_DEFAULT_PASS: "rabbitmq"
+    #  RABBITMQ_DEFAULT_VHOST: "/"
+#environment:
+     # - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-setcookie QWERTY"
+     #  - RABBITMQ_NODENAME=rabbit@localhost
     container_name: $rabbitmq
     hostname: "rabbitmq"
     labels:
@@ -31,20 +39,15 @@ services:
       - "15671:15671"
       - "15672:15672"
     restart: always
-  dsline.stock.services.api:
-    image: ${DOCKER_REGISTRY-}dslinestockservicesapi
-    build:
-      context: .
-      dockerfile: DsLine.Stock.Services.Api/Dockerfile
-    depends_on:
-      - rabbitmq
-      - sql.data
-    environment: 
-      - ASPNETCORE_ENVIRONMENT=Development
-    expose:
-      - "80"
-    ports:
-      - "8082:80"
+    volumes:
+    #  - ./data:/var/lib/rabbitmq:rw
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      - ./rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
+     # - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
+      #- ./rabbitmq:/etc/rabbitmq:ro
+   # command: bash -c  "apt-get update; apt-get -y install sudo; sudo rm -rf /var/log/rabbitmq/"
+  #  command: bash -c "sleep 10; rabbitmqctl add_vhost tenant2;"
+  #  command: bash -c "apt-get update; apt-get -y install sudo; sudo rm -rf /var/log/rabbitmq/; sudo service rabbitmq-server start; rabbitmqctl start_app;  sleep 20; rabbitmqctl add_vhost tenant2;"
   dsline.orders.services.api:
     image: ${DOCKER_REGISTRY-}dslineordersservicesapi
     build:
@@ -53,11 +56,24 @@ services:
     depends_on:
       - rabbitmq
       - sql.data
-    links:
-      - dsline.stock.services.api
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
     expose:
       - "80"
     ports:
       - "8081:80"
+  dsline.stock.services.api:
+    image: ${DOCKER_REGISTRY-}dslinestockservicesapi
+    build:
+      context: .
+      dockerfile: DsLine.Stock.Services.Api/Dockerfile
+    depends_on:
+      - rabbitmq
+      - sql.data
+      - dsline.orders.services.api
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+    expose:
+      - "80"
+    ports:
+      - "8082:80"

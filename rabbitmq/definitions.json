@@ -1,0 +1,56 @@
+{
+  "rabbit_version": "3.8.5",
+  "users": [
+    {
+      "name": "usertenant1",
+      "password_hash": "eAnJ7yAxAzDwGuxRw6L1gOR3jue+iTtWp/hPwrIHQpJZrpHm",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "tenant1"
+    },
+    {
+      "name": "usertenant2",
+      "password_hash": "o5j9ezImkd1O0N8GsHQsZ6yQzq1vjI8a5vJo/O5gxJrzgNlD",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "tenant2"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    },
+    {
+      "name": "tenant1"
+    },
+    {
+      "name": "tenant2"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "usertenant1",
+      "vhost": "tenant1",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "usertenant2",
+      "vhost": "tenant2",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "topic_permissions": [],
+  "parameters": [],
+  "global_parameters": [
+    {
+      "name": "cluster_name",
+      "value": "rabbit@98c821300e49"
+    }
+  ],
+  "policies": [],
+  "queues": [],
+  "exchanges": [],
+  "bindings": []
+}

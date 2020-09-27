@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DShop.Common_" Version="2.0.5" />
+    <PackageReference Include="DShop.Common_" Version="2.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-preview.3.20181.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

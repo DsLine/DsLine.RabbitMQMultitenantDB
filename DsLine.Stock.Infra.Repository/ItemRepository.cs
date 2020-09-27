@@ -1,7 +1,8 @@
 ﻿using DsLine.Stock.Models.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Runtime.CompilerServices;
 
 namespace DsLine.Stock.Infra.Repository
 {
@@ -15,6 +16,22 @@ namespace DsLine.Stock.Infra.Repository
         public ItemStock GetByItem(Guid itemId)
         {
             return DbSet.Where(x => x.ItemId == itemId).SingleOrDefault();
+        }
+
+        public bool UpdateStock(List<ItemStock> itemStocksUpdates)
+        {
+            var listItemIdId = itemStocksUpdates.Select(r => r.ItemId);
+            List<ItemStock> itemStocks = DbSet.Where(r => listItemIdId.Contains(r.ItemId)).ToList();
+            foreach (var item in itemStocks)
+            {
+                ItemStock itemStockUpdate = itemStocksUpdates.Where(x => x.ItemId == item.ItemId).SingleOrDefault();
+                item.Quantity = item.Quantity - itemStockUpdate.Quantity;
+                DbSet.Update(item);
+            }
+            DbContext.SaveChanges();
+
+
+            return true;
         }
     }
 }
