@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DsLine.Core.Services.Api\DsLine.Core.Services.Api.csproj" />
     <ProjectReference Include="..\DsLine.Order.Infra.Repository\DsLine.Orders.Infra.Repository.csproj" />
     <ProjectReference Include="..\DsLine.Order.Models.Entities\DsLine.Orders.Models.Entities.csproj" />
   </ItemGroup>

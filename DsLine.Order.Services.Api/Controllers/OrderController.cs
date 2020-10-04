@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System;
 using RawRabbit;
 using System.Linq;
+using DShop.CrossCutting.MultiTenant;
 
 namespace DsLine.Orders.Services.Api.Controllers
 {
@@ -21,11 +22,18 @@ namespace DsLine.Orders.Services.Api.Controllers
         private readonly IOrderRepository _orderRepository;
         private readonly IStockItemServices _stockItemServices;
         private readonly IBusPublisher _busClient;
-        public OrderController(IStockItemServices stockItemServices, IOrderRepository orderRepository, IBusPublisher busClient)
+        private readonly ITenant _tenant;
+        public OrderController(
+            IStockItemServices stockItemServices,
+            IOrderRepository orderRepository,
+            IBusPublisher busClient,
+            ITenant tenant
+            )
         {
             _orderRepository = orderRepository;
             _stockItemServices = stockItemServices;
             _busClient = busClient;
+            _tenant = tenant;
         }
 
 
@@ -35,7 +43,7 @@ namespace DsLine.Orders.Services.Api.Controllers
             List<OrderItem> ItemsNotSatisfie = new List<OrderItem>();
             foreach (var item in order.Items)
             {
-                ItemStockDTO itemStockDTO = await _stockItemServices.GetItemStockAsync(item.ItemId);
+                ItemStockDTO itemStockDTO = await _stockItemServices.GetItemStockAsync(_tenant.TenantId, item.ItemId);
                 if (itemStockDTO.Quantity < item.Quantity)
                 {
                     ItemsNotSatisfie.Add(item);
@@ -51,7 +59,7 @@ namespace DsLine.Orders.Services.Api.Controllers
             //  _busClient.PublishAsync(updateStockCommand, GetContext<UpdateStockEvent>(), "tenant1");
 
             var gui = Guid.NewGuid();
-            _ = _busClient.PublishAsync(@updateStockCommand, CorrelationContext.Create<UpdateStockEvent>(gui, gui, gui, "origen", gui.ToString(), "", "", ""), "tenant1");
+            _ = _busClient.PublishAsync(@updateStockCommand, CorrelationContext.Create<UpdateStockEvent>(gui, gui, gui, "origen", gui.ToString(), "", "", ""), _tenant.TenantId);
 
             _orderRepository.Add(order);
             _orderRepository.SaveChanges();

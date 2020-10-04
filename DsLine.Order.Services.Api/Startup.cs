@@ -1,11 +1,13 @@
 using DShop.Common.RestEase;
 using DShop.CrossCutting.MultiTenant;
 using DsLine.Core.RabbitMQ;
+using DsLine.Core.Services.Api.Middleware;
 using DsLine.Orders.Infra.Repository;
 using DsLine.Orders.Services.Api.ExternalServices.Stock;
 using DsLine.Orders.Services.Api.Messages.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,9 +29,10 @@ namespace DsLine.Orders.Services.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton<IBusClient, BusClient>();
-            services.AddSingleton<ITenant, Tenant>();
-            services.AddSingleton<IOrderRepository, OrderRepository>();
+
+            services.AddScoped<ITenant, Tenant>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<OrderDbContext>(ServiceLifetime.Scoped);
             services.RegisterServiceForwarder<IStockItemServices>("stock-service");
             services.AddControllers();
@@ -44,11 +47,10 @@ namespace DsLine.Orders.Services.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //(onError: (cmd, ex);
-            //  => new CreateDiscountRejected(cmd.Id, ex.Message, "customer_not_found"))
 
 
-         
+
+            app.UseTenantMiddleware();
 
             app.UseRouting();
 

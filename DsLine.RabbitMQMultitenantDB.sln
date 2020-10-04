@@ -61,7 +61,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{DD
 		rabbitmq.config\rabbitmq.config = rabbitmq.config\rabbitmq.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DsLine.Core.Helper", "..\DsLine.Core.Helper\DsLine.Core.Helper.csproj", "{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DsLine.Core.Helper", "..\DsLine.Core.Helper\DsLine.Core.Helper.csproj", "{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DsLine.Core.Services.Api", "DsLine.Core.Services.Api\DsLine.Core.Services.Api.csproj", "{DC88C1A0-A5AE-4137-A56A-685F4FA0B5DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +123,10 @@ Global
 		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC88C1A0-A5AE-4137-A56A-685F4FA0B5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC88C1A0-A5AE-4137-A56A-685F4FA0B5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC88C1A0-A5AE-4137-A56A-685F4FA0B5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC88C1A0-A5AE-4137-A56A-685F4FA0B5DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +154,7 @@ Global
 		{C298EB53-D445-4B07-81CD-22ABF3534879} = {B261706D-37ED-4659-AA35-3884399F3C36}
 		{7C25F666-17AA-4356-B88E-7B9EF9EBE72E} = {274A007C-B4B4-4FC4-8BC7-8FF09368304E}
 		{A6AAC2E0-85EC-45DE-8FD1-18BCCD7C0242} = {6E680E93-84AA-4CEF-8ECB-50E42B805991}
+		{DC88C1A0-A5AE-4137-A56A-685F4FA0B5DC} = {B857808F-B203-4DEB-A2EF-0D8D3E8A822C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4917E892-F5BB-4063-9521-2572086C2857}

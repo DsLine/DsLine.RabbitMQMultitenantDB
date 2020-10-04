@@ -1,9 +1,7 @@
 ﻿using DShop.Common.Messages;
 using DsLine.Orders.Models.Entities;
-using DsLine.Orders.Services.Api.Dto;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DsLine.Orders.Services.Api.Messages.Commands
 {

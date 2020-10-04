@@ -1,5 +1,4 @@
-﻿using DsLine.Orders.Models.Entities;
-using DsLine.Orders.Services.Api.Dto;
+﻿using DsLine.Orders.Services.Api.Dto;
 using RestEase;
 using System;
 using System.Threading.Tasks;
@@ -10,6 +9,6 @@ namespace DsLine.Orders.Services.Api.ExternalServices.Stock
     {
         [AllowAnyStatusCode]
         [Get("/api/item/{id}")]
-        Task<ItemStockDTO> GetItemStockAsync([Path] Guid id);
+        Task<ItemStockDTO> GetItemStockAsync([Header("Authorization")] string authorization, [Path] Guid id);
     }
 }

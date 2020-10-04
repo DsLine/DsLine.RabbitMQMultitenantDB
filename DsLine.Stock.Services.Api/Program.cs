@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DShop.CrossCutting.MultiTenant;
 using DsLine.Core.RabbitMQ;
 using DsLine.Stock.Infra.Repository;
 using Microsoft.AspNetCore.Hosting;
@@ -45,24 +46,30 @@ namespace DsLine.Stock.Services.Api
     {
         public static IHost MigrateDatabase(this IHost host)
         {
-            using (var scope = host.Services.CreateScope())
+            string[] tenantsMigration = { "tenant1", "tenant2" };
+            foreach (var tenantMigration in tenantsMigration)
             {
-                using (var appContext = scope.ServiceProvider.GetRequiredService<StockDbContext>())
+                using (var scope = host.Services.CreateScope())
                 {
-                    try
+                    ITenant tenant = scope.ServiceProvider.GetService<ITenant>();
+                    tenant.TenantId = tenantMigration;
+                    using (var appContext = scope.ServiceProvider.GetRequiredService<StockDbContext>())
                     {
-                        appContext.Database.Migrate();
-                    }
-                    catch (Exception ex)
-                    {
-                        //Log errors or do anything you think it's needed
-                        throw;
+                        try
+                        {
+                            appContext.Database.Migrate();
+                        }
+                        catch (Exception ex)
+                        {
+                            //Log errors or do anything you think it's needed
+                            throw;
+                        }
                     }
                 }
             }
 
+
             return host;
         }
     }
-
 }
